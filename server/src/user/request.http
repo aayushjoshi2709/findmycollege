@@ -1,0 +1,46 @@
+### get all users
+GET http://localhost:3000/users
+
+### get current user
+GET http://localhost:3000/users/current
+
+
+### sign up user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "fname": "mamta",
+    "lname": "joshi",
+    "username": "mamta",
+    "email": "mamta@gmail.com",
+    "password": "pass"
+}
+
+### update user
+PATCH  http://localhost:3000/users/7
+Content-Type: application/json
+
+{
+    "fname": "mamta",
+    "lname": "joshi",
+    "username": "mamta",
+    "email": "mamta@gmail.com",
+    "password": "pass"
+}
+
+### sign in user
+POST http://localhost:3000/users/signin
+Content-Type: application/json
+
+{
+    "username": "aayush",
+    "password": "pass"
+}
+
+### sign out user
+POST http://localhost:3000/users/signout
+
+### delete user
+DELETE  http://localhost:3000/users/1
+

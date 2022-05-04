@@ -1,0 +1,43 @@
+### add new college
+POST http://localhost:3000/colleges
+Content-Type: application/json
+
+{
+    "name":"Graphic Era Dehradun",
+    "website":"www.geu.com",
+    "userid":1,
+    "courses":"BCA, H.M., MCA",
+    "address":"Dehradun",
+    "phoneNo":7834234354,
+    "about":"Graphic Era Main Branch Dehradun",
+    "location":"Dehradun"
+}
+
+
+### Get all colleges
+GET http://localhost:3000/colleges
+
+### Get college with perticular id
+GET http://localhost:3000/colleges/2
+
+
+### Get college with perticular criteria
+GET http://localhost:3000/colleges/search/Graphic
+
+
+### update college data
+PATCH  http://localhost:3000/colleges/1
+Content-Type: application/json
+
+{
+    "name": "Graphic Era Dehradun",
+    "website": "www.gehu.ac.in",
+    "userid": "1",
+    "courses": "B.C.A, B.B.A",
+    "address": "Dehradun",
+    "phoneNo": "934059034",
+    "about": "education for all"
+}
+
+### delete college
+DELETE   http://localhost:3000/colleges/2
