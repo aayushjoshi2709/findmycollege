@@ -10,7 +10,7 @@ function DescCard({college}) {
           <b>Location:</b> {college.location}<br/>          
           <b>Website:</b> {college.website}
         </p>
-        <a href={college.website} className="btn btn-primary">
+        <a href={college.website} target="_blank" className="btn btn-primary">
           Visit Website
         </a>
       </div>
