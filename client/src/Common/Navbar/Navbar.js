@@ -4,7 +4,7 @@ import axios from "axios";
 function Navbar({ currentUser, setCurrentUser }) {
   const logMeOut = () => {
     axios
-      .post("http://localhost:3000/users/signout", { withCredentials: true })
+      .post("http://localhost:3000/users/signout")
       .then((res) => {
         if (res.status === 201) {
           setCurrentUser({});
@@ -91,7 +91,7 @@ function Navbar({ currentUser, setCurrentUser }) {
               {currentUser.username ? (
                 <>
                   <li>
-                    <Link className="dropdown-item" to="/dashboard">
+                    <Link className="dropdown-item" to="/user/dashboard">
                       Dashboard
                     </Link>
                   </li>
@@ -109,7 +109,7 @@ function Navbar({ currentUser, setCurrentUser }) {
               ) : (
                 <>
                   <li>
-                    <Link className="dropdown-item" to="/user">
+                    <Link className="dropdown-item" to="/user/login">
                       Login
                     </Link>
                   </li>

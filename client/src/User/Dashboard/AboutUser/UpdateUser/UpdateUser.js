@@ -3,20 +3,20 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
-function SignUp({setCurrentUser}) {
+function UpdateUser({currentUser,setCurrentUser}) {
   const initialValues = {
-    fname: "",
-    lname: "",
-    username: "",
-    email: "",
-    password: "",
+    fname: currentUser.fname,
+    lname: currentUser.lname,
+    username: currentUser.username,
+    email: currentUser.email,
   };
+
   const navigate = useNavigate();
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
-    axios.post("http://localhost:3000/users", values).then((res) => {
-      if (res.status === 201) {
+    axios.patch("http://localhost:3000/users", values).then((res) => {
+      if (res.status === 200) {
         setCurrentUser(res.data);
         navigate('/');
       } else if (res.status === 400) {
@@ -34,15 +34,14 @@ function SignUp({setCurrentUser}) {
   }
   return (
     <div>
-      <div className="container mt-2 d-flex justify-content-center">
+      <div className="container mt-5 d-flex justify-content-center">
         <div className="col-lg-8 bg-light m-4 p-3">
           <form
             onSubmit={(evt) => {
               handleSubmit(evt);
             }}
           >
-            <h1 className="text-center display-2">SignUp</h1>
-            <div className="mb-1">
+             <div className="m-2">
               <p>
                 First Name:
                 <input
@@ -53,10 +52,11 @@ function SignUp({setCurrentUser}) {
                   name="fname"
                   className="form-control"
                   id="fname"
+                  value={initialValues.fname}
                 />
               </p>
             </div>
-            <div className="mb-1">
+            <div className="m-2">
               <p>
                 Last Name:
                 <input
@@ -67,10 +67,11 @@ function SignUp({setCurrentUser}) {
                   name="lname"
                   className="form-control"
                   id="lname"
+                  value={initialValues.lname}
                 />
               </p>
             </div>
-            <div className="mb-1">
+            <div className="m-2">
               <p>
                 Username:{" "}
                 <input
@@ -81,10 +82,11 @@ function SignUp({setCurrentUser}) {
                   name="username"
                   className="form-control"
                   id="username"
+                  value={initialValues.username}
                 />
               </p>
             </div>
-            <div className="mb-1">
+            <div className="m-2">
               <p>
                 Email:
                 <input
@@ -95,30 +97,14 @@ function SignUp({setCurrentUser}) {
                   name="email"
                   className="form-control"
                   id="email"
-                />
-              </p>
-            </div>
-            <div className="mb-1">
-              <p>
-                Password:
-                <input
-                  onChange={(evt) => {
-                    handleChange(evt);
-                  }}
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  id="password"
+                  value={initialValues.email}
                 />
               </p>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-primary m-2">
-                SignUp
+              <button type="submit" className="btn btn-primary btn-lg m-2">
+                Update User
               </button>
-              <Link to="/user" className="btn btn-danger m-2">
-                Login
-              </Link>
             </div>
           </form>
         </div>
@@ -127,4 +113,4 @@ function SignUp({setCurrentUser}) {
   );
 }
 
-export default SignUp;
+export default UpdateUser;

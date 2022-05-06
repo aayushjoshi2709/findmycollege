@@ -3,10 +3,10 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Patch,
   Post,
   Session,
+  Res
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './Dtos/create-user.dto';
@@ -18,6 +18,7 @@ import { UserEntity } from './user.entity';
 import { CurrentUser } from './Decorators/current-user.decorator';
 import { Serialize } from './Interseptor/serialize.interceptor';
 import { UserDto } from './Dtos/user.dto';
+import { Response } from 'express';
 @Serialize(UserDto)
 @Controller('users')
 export class UserController {
@@ -38,23 +39,24 @@ export class UserController {
 
   // delete a user
   @UseGuards(AuthGaurd)
-  @Delete(':id')
-  deleteUser(@Param('id') id: number) {
-    this.userService.removeUser(id);
+  @Delete()
+  deleteUser(@Res({ passthrough: true }) response: Response,@CurrentUser() user: UserEntity) {
+    this.userService.removeUser(user.id);
+    response.clearCookie('userid');
     return null;
   }
 
   // update user
   @UseGuards(AuthGaurd)
-  @Patch(':id')
-  async updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
-    let res = await this.userService.updateUser(parseInt(id), body);
+  @Patch()
+  async updateUser(@CurrentUser() user: UserEntity, @Body() body: UpdateUserDto) {
+    let res = await this.userService.updateUser(user.id, body);
     return res;
   }
 
   // create new user
   @Post()
-  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
+  async createUser(@Res({ passthrough: true }) response: Response, @Body() body: CreateUserDto, @Session() session: any) {
     let user = await this.userService.createUser(
       body.fname,
       body.lname,
@@ -62,22 +64,22 @@ export class UserController {
       body.email,
       body.password,
     );
-    session.userId = user.id;
+    response.cookie('userid', user.id, {httpOnly:true});
     return user;
   }
 
   // signin
   @Post('signin')
-  async signIn(@Body() body: SignInUserDto, @Session() session: any) {
+  async signIn(@Res({ passthrough: true }) response: Response, @Body() body: SignInUserDto, @Session() session: any) {
     let user = await this.userService.signIn(body.username, body.password);
-    session.userId = user.id;
+    response.cookie('userid', user.id, {httpOnly:true});
     return user;
   }
 
   // signout
   @UseGuards(AuthGaurd)
   @Post('signout')
-  signout(@Session() session: any) {
-    session.userId = null;
+  signout(@Res({ passthrough: true }) response: Response, @Session() session: any) {
+    response.clearCookie('userid');
   }
 }

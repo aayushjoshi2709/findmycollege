@@ -14,6 +14,7 @@ export class CollegeService{
     }
     async findById(id: number){
         let college = await this.repo.findOne({where:{id:id}});
+        if(!college) throw new NotFoundException('College not found');
         return college;
     }
 
@@ -50,7 +51,7 @@ export class CollegeService{
     }
     async removeCollege(id: number){
         const college = await this.repo.findOne({where:{id: id}});
-        if(!college) throw new NotFoundException('user not found');
+        if(!college) throw new NotFoundException('College not found');
         return this.repo.remove(college);
     }
 }

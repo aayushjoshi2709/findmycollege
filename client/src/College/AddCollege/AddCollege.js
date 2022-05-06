@@ -1,10 +1,11 @@
-import React,{useState} from 'react'
-
-function AddCollege({setNewCollege}) {
+import React,{useState, useEffect} from 'react'
+import { Navigate } from 'react-router-dom';
+import axios from 'axios';
+function AddCollege({setGetColleges}) {
+    const [newCollege, setNewCollege] = useState({});
     const initialValues = {
         name: "",
         website: "",
-        userid: 1,
         courses: "",
         address: "",
         phoneNo: "",
@@ -13,7 +14,8 @@ function AddCollege({setNewCollege}) {
     };
     const [values, setValues] = useState(initialValues);
     function handleSubmit(evt){
-        evt.preventDefaults();
+        
+        evt.preventDefault();
         setNewCollege(values);
     }
     function handleChange(evt){
@@ -23,6 +25,18 @@ function AddCollege({setNewCollege}) {
         [name]: value,
         });
     }
+    useEffect(() => {
+        if(Object.keys(newCollege).length !== 0){
+          newCollege.phoneNo = parseInt(newCollege.phoneNo);
+          axios.post(`http://localhost:3000/colleges`, newCollege).then((response) => { 
+          if(response.status === 201){
+                setGetColleges(true);
+          }
+          }).catch(function (error) {
+            console.log(error);
+          });
+       }
+    }, [newCollege]);
   return (
     <div className='container mt-2 d-flex justify-content-center'>
         <div className='col-lg-8 bg-light m-4  p-3'>

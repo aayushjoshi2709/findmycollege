@@ -5,8 +5,6 @@ export class CreateCollegeDto{
     name: string;
     @IsString()
     website: string;
-    @IsNumber()
-    userid: number;
     @IsString()
     courses: string;
     @IsString()

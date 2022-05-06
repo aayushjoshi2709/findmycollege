@@ -8,9 +8,6 @@ export class UpdateCollegeDto{
     @IsString()
     website: string;
     @IsOptional()
-    @IsNumber()
-    userid: number;
-    @IsOptional()
     @IsString()
     courses: string;
     @IsOptional()

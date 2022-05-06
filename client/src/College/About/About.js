@@ -10,7 +10,6 @@ function About(props) {
   const [collegeData, setCollegeData] = useState({});
   useEffect(() => {
     axios.get('http://localhost:3000/colleges/' + parseInt(id)).then((res)=>{
-      console.log(res);
       setCollegeData(res.data);
     });
   }, [id])

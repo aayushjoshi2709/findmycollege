@@ -5,7 +5,6 @@ Content-Type: application/json
 {
     "name":"Graphic Era Dehradun",
     "website":"www.geu.com",
-    "userid":1,
     "courses":"BCA, H.M., MCA",
     "address":"Dehradun",
     "phoneNo":7834234354,
@@ -26,18 +25,17 @@ GET http://localhost:3000/colleges/search/Graphic
 
 
 ### update college data
-PATCH  http://localhost:3000/colleges/1
+PATCH  http://localhost:3000/colleges/7
 Content-Type: application/json
 
 {
     "name": "Graphic Era Dehradun",
     "website": "www.gehu.ac.in",
-    "userid": "1",
     "courses": "B.C.A, B.B.A",
     "address": "Dehradun",
-    "phoneNo": "934059034",
+    "phoneNo": 934059034,
     "about": "education for all"
 }
 
 ### delete college
-DELETE   http://localhost:3000/colleges/2
+DELETE   http://localhost:3000/colleges/7
