@@ -56,7 +56,7 @@ export class UserController {
 
   // create new user
   @Post()
-  async createUser(@Res({ passthrough: true }) response: Response, @Body() body: CreateUserDto, @Session() session: any) {
+  async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     let user = await this.userService.createUser(
       body.fname,
       body.lname,
@@ -64,22 +64,22 @@ export class UserController {
       body.email,
       body.password,
     );
-    response.cookie('userid', user.id, {httpOnly:true});
+    session.userid = user.id;
     return user;
   }
 
   // signin
   @Post('signin')
-  async signIn(@Res({ passthrough: true }) response: Response, @Body() body: SignInUserDto, @Session() session: any) {
+  async signIn(@Session() session:any, @Body() body: SignInUserDto) {
     let user = await this.userService.signIn(body.username, body.password);
-    response.cookie('userid', user.id, {httpOnly:true});
+    session.userid = user.id;
     return user;
   }
 
   // signout
   @UseGuards(AuthGaurd)
   @Post('signout')
-  signout(@Res({ passthrough: true }) response: Response, @Session() session: any) {
-    response.clearCookie('userid');
+  signout( @Session() session: any) {
+    session.userid = -1;
   }
 }
