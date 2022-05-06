@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react'
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 function AddCollege({setGetColleges}) {
+    const navigate = useNavigate();
     const [newCollege, setNewCollege] = useState({});
     const initialValues = {
         name: "",
@@ -11,6 +12,7 @@ function AddCollege({setGetColleges}) {
         phoneNo: "",
         about: "",
         location: "",
+        url:"",
     };
     const [values, setValues] = useState(initialValues);
     function handleSubmit(evt){
@@ -31,6 +33,7 @@ function AddCollege({setGetColleges}) {
           axios.post(`http://localhost:3000/colleges`, newCollege).then((response) => { 
           if(response.status === 201){
                 setGetColleges(true);
+                navigate('/');
           }
           }).catch(function (error) {
             console.log(error);
@@ -43,25 +46,28 @@ function AddCollege({setGetColleges}) {
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Add New College</h1>
                 <div className="mb-1">
-                    <p>College Name: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='name' className="form-control" id="name"/></p>
+                    <p>College Name: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='name' required className="form-control" id="name"/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Website: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='website' className="form-control" id="website"/></p>
+                    <p>Website: <input onChange={(evt) =>{handleChange(evt)}} type="url" name='website'required className="form-control" id="website"/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Courses Offered: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="courses" name='courses'/></p>
+                    <p>Courses Offered: <input onChange={(evt) =>{handleChange(evt)}} type="text" required className="form-control" id="courses" name='courses'/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Address: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id='address' name='address'/></p>
+                    <p>Address: <input onChange={(evt) =>{handleChange(evt)}} type="text" required className="form-control" id='address' name='address'/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Phone No: <input onChange={(evt) =>{handleChange(evt)}} type="number" className="form-control" name='phoneNo' id='phoneNo'/></p>
+                    <p>Phone No: <input onChange={(evt) =>{handleChange(evt)}} type="number" className="form-control" name='phoneNo' id='phoneNo' required/></p>
                 </div>
                 <div className="mb-1">
-                    <p>About: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="about" name='about'/></p>
+                    <p>About: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="about" name='about' required/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Location: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="location" name='location'/></p>
+                    <p>Location: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="location" name='location' required/></p>
+                </div>
+                <div className="mb-1">
+                    <p>Image Url: <input onChange={(evt) =>{handleChange(evt)}} type="url" className="form-control" id="iurl" name='imageUrl' required/></p>
                 </div>
                 <div className='text-center'>
                     <button type="submit" className="btn btn-primary m-2">Submit</button>

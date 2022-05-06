@@ -18,7 +18,6 @@ function UpdateUser({currentUser,setCurrentUser}) {
     axios.patch("http://localhost:3000/users", values).then((res) => {
       if (res.status === 200) {
         setCurrentUser(res.data);
-        navigate('/');
       } else if (res.status === 400) {
         console.log("error signing up");
       }
@@ -52,7 +51,7 @@ function UpdateUser({currentUser,setCurrentUser}) {
                   name="fname"
                   className="form-control"
                   id="fname"
-                  value={initialValues.fname}
+                  placeholder={initialValues.fname}
                 />
               </p>
             </div>
@@ -67,7 +66,7 @@ function UpdateUser({currentUser,setCurrentUser}) {
                   name="lname"
                   className="form-control"
                   id="lname"
-                  value={initialValues.lname}
+                  placeholder={initialValues.lname}
                 />
               </p>
             </div>
@@ -82,7 +81,7 @@ function UpdateUser({currentUser,setCurrentUser}) {
                   name="username"
                   className="form-control"
                   id="username"
-                  value={initialValues.username}
+                  placeholder={initialValues.username}
                 />
               </p>
             </div>
@@ -97,7 +96,7 @@ function UpdateUser({currentUser,setCurrentUser}) {
                   name="email"
                   className="form-control"
                   id="email"
-                  value={initialValues.email}
+                  placeholder={initialValues.email}
                 />
               </p>
             </div>

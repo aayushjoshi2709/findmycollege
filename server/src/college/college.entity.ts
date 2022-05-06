@@ -20,4 +20,6 @@ export class CollegeEntity{
     about: string
     @Column()
     location: string
+    @Column()
+    imageUrl: string
 }

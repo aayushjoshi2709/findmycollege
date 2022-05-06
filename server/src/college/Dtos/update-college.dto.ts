@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsOptional } from "class-validator";
+import { IsString, IsNumber, IsOptional,IsUrl } from "class-validator";
 
 export class UpdateCollegeDto{
     @IsOptional()
@@ -22,4 +22,7 @@ export class UpdateCollegeDto{
     @IsOptional()
     @IsString()
     location: string
+    @IsOptional()
+    @IsUrl()
+    imageUrl: string
 }

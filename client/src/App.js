@@ -10,6 +10,8 @@ import SignUp from './User/Signup/SignUp';
 import About from './College/About/About';
 import AboutUser from './User/Dashboard/AboutUser/AboutUser';
 import MyColleges from './User/Dashboard/MyColleges/MyColleges';
+import UpdateCollege from './College/UpdateCollege/UpdateCollege';
+import AccountSettings from './User/Dashboard/AccountSettings/AccountSettings';
 function App() {
   axios.defaults.withCredentials = true;
   const [colleges, setColleges] = useState({});
@@ -46,12 +48,14 @@ function App() {
           <Route path="colleges">
             <Route path="" element={<ShowColleges colleges = {colleges}/>} />
             <Route path="new" element={<AddCollege setGetColleges = {setGetColleges}/>} />
+            <Route path="update/:id" element={<UpdateCollege/>}/>
             <Route path="about/:id" element={<About/>}/>
           </Route>
           <Route path='user'>
             <Route path="dashboard" >
               <Route path='' element={<AboutUser currentUser= {currentUser} setCurrentUser={setCurrentUser}/>}/>  
               <Route path ='MyColleges' element = {<MyColleges colleges = {colleges} currentUser= {currentUser} setGetColleges = {setGetColleges}/>}/>
+              <Route path ='AccountSettings' element = {<AccountSettings/>}/>
             </Route>
             <Route path="login" element={<Login setCurrentUser = {setCurrentUser}/>} />
             <Route path="new" element={<SignUp setCurrentUser = {setCurrentUser} />} />

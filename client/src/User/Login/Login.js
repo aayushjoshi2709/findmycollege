@@ -51,6 +51,7 @@ function Login({ setCurrentUser }) {
                   name="username"
                   className="form-control"
                   id="username"
+                  required
                 />
               </p>
             </div>
@@ -65,6 +66,7 @@ function Login({ setCurrentUser }) {
                   name="password"
                   className="form-control"
                   id="password"
+                  required
                 />
               </p>
             </div>

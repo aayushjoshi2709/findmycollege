@@ -34,7 +34,7 @@ export class CollegeController{
     @UseGuards(AuthGaurd)
     @Post()
     async addNewCollege(@Body() body :CreateCollegeDto,@CurrentUser() user: UserEntity){
-        let college = await this.collegeService.addCollege(body.name, body.website, user.id, body.courses, body.address, body.phoneNo, body.about, body.location);
+        let college = await this.collegeService.addCollege(body.name, body.website, user.id, body.courses, body.address, body.phoneNo, body.about, body.location,body.imageUrl);
         return college;
     }
 

@@ -3,7 +3,7 @@ import CollegeTableRow from './CollegeTableRow/CollegeTableRow'
 function CollegeTable({colleges, setGetColleges}) {
   return (
     <div className="container mt-4">
-        <table class="table table-dark h-75 w-100 ml-5 mt-5">
+        <table className="table table-dark h-75 w-100 ml-5 mt-5">
             <thead >
                 <tr>
                     <th scope="col">Sno</th>

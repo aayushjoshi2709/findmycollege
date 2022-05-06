@@ -15,6 +15,7 @@ function SignUp({setCurrentUser}) {
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
+    console.log(values)
     axios.post("http://localhost:3000/users", values).then((res) => {
       if (res.status === 201) {
         setCurrentUser(res.data);
@@ -53,6 +54,7 @@ function SignUp({setCurrentUser}) {
                   name="fname"
                   className="form-control"
                   id="fname"
+                  required
                 />
               </p>
             </div>
@@ -67,6 +69,7 @@ function SignUp({setCurrentUser}) {
                   name="lname"
                   className="form-control"
                   id="lname"
+                  required
                 />
               </p>
             </div>
@@ -81,6 +84,7 @@ function SignUp({setCurrentUser}) {
                   name="username"
                   className="form-control"
                   id="username"
+                  required
                 />
               </p>
             </div>
@@ -95,6 +99,7 @@ function SignUp({setCurrentUser}) {
                   name="email"
                   className="form-control"
                   id="email"
+                  required
                 />
               </p>
             </div>
@@ -109,6 +114,9 @@ function SignUp({setCurrentUser}) {
                   name="password"
                   className="form-control"
                   id="password"
+                  required
+                  title="Password must contain: Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                 />
               </p>
             </div>

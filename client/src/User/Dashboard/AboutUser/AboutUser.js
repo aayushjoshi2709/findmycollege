@@ -5,7 +5,7 @@ function AboutUser({currentUser,setCurrentUser}) {
   return (
     <>
         <SideBar/>
-        <div class="content bg-body" style={{height: '41.55rem'}}>
+        <div className="content bg-body" style={{height: '41.55rem'}}>
             <UpdateUser currentUser= {currentUser} setCurrentUser={setCurrentUser}/>
         </div>
     </>

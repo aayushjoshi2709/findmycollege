@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from "class-validator";
+import { IsString, IsNumber, IsUrl } from "class-validator";
 
 export class CreateCollegeDto{
     @IsString()
@@ -15,6 +15,8 @@ export class CreateCollegeDto{
     about: string
     @IsString()
     location: string
+    @IsUrl()
+    imageUrl: string
 }
 
 
