@@ -1,6 +1,14 @@
 import React from 'react'
-
-function CollegeTableRow({college}) {
+import axios from 'axios';
+function CollegeTableRow({college,setGetColleges}) {
+  function deletecollege(id){
+    axios.delete('http://localhost:3000/colleges/' + id).then((res) =>{
+      console.log(res);
+      if(res.status === 200){
+        setGetColleges(true);
+      }
+    })
+  }
   console.log(college)
   return (
     <tr>
@@ -8,7 +16,7 @@ function CollegeTableRow({college}) {
       <td>{college.name}</td>
       <td>{college.location}</td>
       <td><button className='btn btn-success'>Update</button></td>
-      <td><button className='btn btn-danger'>Delete</button></td>
+      <td><button onClick={()=>{deletecollege(college.id)}} className='btn btn-danger'>Delete</button></td>
     </tr>
   )
 }

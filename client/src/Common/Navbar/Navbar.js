@@ -63,11 +63,6 @@ function Navbar({ currentUser, setCurrentUser }) {
                         Add College
                       </Link>
                     </li>
-                    <li>
-                      <Link className="dropdown-item" to="#">
-                        Update College
-                      </Link>
-                    </li>
                   </>
                 ) : (
                   ""

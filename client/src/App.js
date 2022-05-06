@@ -51,7 +51,7 @@ function App() {
           <Route path='user'>
             <Route path="dashboard" >
               <Route path='' element={<AboutUser currentUser= {currentUser} setCurrentUser={setCurrentUser}/>}/>  
-              <Route path ='MyColleges' element = {<MyColleges colleges = {colleges} currentUser= {currentUser}/>}/>
+              <Route path ='MyColleges' element = {<MyColleges colleges = {colleges} currentUser= {currentUser} setGetColleges = {setGetColleges}/>}/>
             </Route>
             <Route path="login" element={<Login setCurrentUser = {setCurrentUser}/>} />
             <Route path="new" element={<SignUp setCurrentUser = {setCurrentUser} />} />

@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { CollegeEntity } from "./college.entity";
 import { Repository, Like } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { UserEntity } from "src/user/user.entity";
 
 @Injectable()
 export class CollegeService{
@@ -43,15 +44,17 @@ export class CollegeService{
         var createdCollege = await this.repo.save(college);
         return createdCollege;
     }
-    async updateCollege(id: number, attrs:Partial<CollegeEntity>){
+    async updateCollege(user:UserEntity, id: number, attrs:Partial<CollegeEntity>){
         const college = await this.repo.findOne({where: {id : id}});
         if(!college) throw new NotFoundException('user not found');
+        if(user.id != college.userid) throw new BadRequestException('you are not authorised for this operation');
         Object.assign(college, attrs);
         return this.repo.save(college);
     }
-    async removeCollege(id: number){
+    async removeCollege(user: UserEntity,id: number){
         const college = await this.repo.findOne({where:{id: id}});
         if(!college) throw new NotFoundException('College not found');
+        if(user.id != college.userid) throw new BadRequestException('you are not authorised for this operation');
         return this.repo.remove(college);
     }
 }

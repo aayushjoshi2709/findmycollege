@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../SideBar/Sidebar'
 import CollegeTable from './CollegeTable/CollegeTable';
-function MyColleges({colleges, currentUser}) {
+function MyColleges({colleges, currentUser, setGetColleges}) {
   Object.filter = (obj, predicate) => 
     Object.keys(obj)
           .filter( key => predicate(obj[key]) )
@@ -12,7 +12,7 @@ function MyColleges({colleges, currentUser}) {
     <>
       <Sidebar/>
       <div className="content d-flex justify-content-center bg-body" style={{height: '41.55rem'}}>
-          <CollegeTable colleges = {filteredCollege}/>
+          <CollegeTable colleges = {filteredCollege} setGetColleges = {setGetColleges}/>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import CollegeTableRow from './CollegeTableRow/CollegeTableRow'
-function CollegeTable({colleges}) {
+function CollegeTable({colleges, setGetColleges}) {
   return (
     <div className="container mt-4">
         <table class="table table-dark h-75 w-100 ml-5 mt-5">
@@ -16,7 +16,7 @@ function CollegeTable({colleges}) {
             <tbody>
                 {
                     Object.keys(colleges).map((id, i) => (
-                        <CollegeTableRow college={colleges[id]}/>
+                        <CollegeTableRow college={colleges[id]} setGetColleges = {setGetColleges}/>
                     ))
                 }
             </tbody>

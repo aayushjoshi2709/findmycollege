@@ -6,6 +6,7 @@ import { UseGuards } from "@nestjs/common";
 import { AuthGaurd } from "src/Gaurds/auth.gaurd";
 import { UserEntity } from "src/user/user.entity";
 import { CurrentUser } from "src/user/Decorators/current-user.decorator";
+import { userInfo } from "os";
 @Controller('colleges')
 export class CollegeController{
     constructor(private collegeService: CollegeService){}
@@ -40,14 +41,14 @@ export class CollegeController{
     // update college data
     @UseGuards(AuthGaurd)
     @Patch(':id')
-    async UpdateCollge(@Param('id') id: number, @Body() body: UpdateCollegeDto){
-        let res = await this.collegeService.updateCollege(id,body);
+    async UpdateCollge(@CurrentUser() user:UserEntity,@Param('id') id: number, @Body() body: UpdateCollegeDto){
+        let res = await this.collegeService.updateCollege(user,id,body);
         return res;
     }
     @UseGuards(AuthGaurd)
     @Delete(':id')
-    async DeleteCollege(@Param('id') id: number){
-        let res = await this.collegeService.removeCollege(id);
+    async DeleteCollege(@CurrentUser() user:UserEntity, @Param('id') id: number){
+        let res = await this.collegeService.removeCollege(user, id);
         return res;
     }
 }
