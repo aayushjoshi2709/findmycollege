@@ -18,7 +18,7 @@ function UpdateUser({currentUser,setCurrentUser}) {
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
-    axios.patch("http://localhost:3000/users", values).then((res) => {
+    axios.patch("/users", values).then((res) => {
       if (res.status === 200) {
         setCurrentUser(res.data);
         setUpdateUserSuccess(true);

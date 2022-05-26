@@ -1,0 +1,21 @@
+{
+  "name": "findmycollege",
+  "version": "1.0.0",
+  "description": "A website to find colleges near you.",
+  "main": "index.js",
+  "scripts": {
+    "build":"cd client && npm run build && cd .. && cd server && npm run prebuild && npm run build",
+    "start":"cd server && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaayush27/findmycollege.git"
+  },
+  "author": "Aayush Joshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaayush27/findmycollege/issues"
+  },
+  "homepage": "https://github.com/jaayush27/findmycollege#readme"
+}

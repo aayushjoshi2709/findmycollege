@@ -4,7 +4,7 @@ import axios from "axios";
 function Navbar({ currentUser, setCurrentUser }) {
   const logMeOut = () => {
     axios
-      .post("http://localhost:3000/users/signout")
+      .post("/users/signout")
       .then((res) => {
         if (res.status === 201) {
           setCurrentUser({});

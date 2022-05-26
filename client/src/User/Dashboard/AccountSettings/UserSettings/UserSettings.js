@@ -10,7 +10,7 @@ function UserSettings({ currentUser, setCurrentUser }) {
         setPasswordStatus(2);
     } else {
       axios
-        .post("http://localhost:3000/users/updatepass", values)
+        .post("/users/updatepass", values)
         .then((res) => {
           if (res.status === 201) {
             setPasswordStatus(1);

@@ -5,7 +5,7 @@ function Comments({comment,currentUser, setReloadComments}) {
   console.log(comment)
   console.log(currentUser)
   function deleteComment(){
-    axios.delete("http://localhost:3000/colleges/comments/"+parseInt(comment.id)).then((res)=>{
+    axios.delete("/colleges/comments/"+parseInt(comment.id)).then((res)=>{
       if(res.status == 200){
         setReloadComments(true);
       }

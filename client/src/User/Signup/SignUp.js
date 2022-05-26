@@ -17,7 +17,7 @@ function SignUp({setCurrentUser}) {
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
-    axios.post("http://localhost:3000/users", values).then((res) => {
+    axios.post("/users", values).then((res) => {
       if (res.status === 201) {
         setSuccessSignup(true);
         setCurrentUser(res.data);

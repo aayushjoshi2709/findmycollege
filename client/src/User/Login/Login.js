@@ -14,7 +14,7 @@ function Login({ setCurrentUser }) {
   const [values, setValues] = useState(initialValues);  
   function HandleSubmit(evt) {
     evt.preventDefault();
-    axios.post("http://localhost:3000/users/signin", values).then((res) => {
+    axios.post("/users/signin", values).then((res) => {
       if (res.status === 201) {
         setSuccessLogin(true);
         setCurrentUser(res.data);

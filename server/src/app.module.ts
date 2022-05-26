@@ -7,14 +7,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CollegeModule } from './college/college.module';
 import { CollegeEntity } from './college/college.entity';
 import { CommentsEntity } from './college/comments.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'sqlite',
-    database: 'db.sqlite',
-    entities:[UserEntity, CollegeEntity, CommentsEntity],
-    synchronize: true
-  }), UserModule, CollegeModule],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../', 'client/build'),
+    }),
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqlite',
+      entities: [UserEntity, CollegeEntity, CommentsEntity],
+      synchronize: true,
+    }),
+    UserModule,
+    CollegeModule,
+  ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule {}

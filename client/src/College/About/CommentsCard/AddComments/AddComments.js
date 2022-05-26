@@ -9,7 +9,7 @@ function AddComments({ id, setReloadComments }) {
       text: Text,
       collegeId: id,
     };
-    axios.post("http://localhost:3000/colleges/comments/", data).then((res) => {
+    axios.post("/colleges/comments/", data).then((res) => {
       if (res.status == 201) {
         setReloadComments(true);
       }

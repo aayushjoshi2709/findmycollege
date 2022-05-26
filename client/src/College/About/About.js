@@ -13,11 +13,11 @@ function About({currentUser}) {
   const [collegeComments, setCollegeComments] = useState({});
   const [ReloadComments, setReloadComments] = useState(false);
   useEffect(() => {
-    axios.get("http://localhost:3000/colleges/" + parseInt(id)).then((res) => {
+    axios.get("/colleges/" + parseInt(id)).then((res) => {
       setCollegeData(res.data);
     });
     axios
-      .get("http://localhost:3000/colleges/comments/" + parseInt(id))
+      .get("/colleges/comments/" + parseInt(id))
       .then((res) => {
         setCollegeComments(res.data);
       });
@@ -25,7 +25,7 @@ function About({currentUser}) {
   useEffect(() => {
     if (ReloadComments == true) {
       axios
-        .get("http://localhost:3000/colleges/comments/" + parseInt(id))
+        .get("/colleges/comments/" + parseInt(id))
         .then((res) => {
           setCollegeComments(res.data);
         });

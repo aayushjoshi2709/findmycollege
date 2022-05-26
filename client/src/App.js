@@ -16,6 +16,8 @@ import AccountSettings from "./User/Dashboard/AccountSettings/AccountSettings";
 
 function App() {
   axios.defaults.withCredentials = true;
+  if(process.env.NODE_ENV !=='PROD')
+    axios.defaults.baseURL = "http://localhost:3000";
   const [colleges, setColleges] = useState({});
   const [foundColleges, setFoundColleges] = useState({});
   const [search, setSearch] = useState({});
@@ -25,7 +27,7 @@ function App() {
   useEffect(() => {
     if (getColleges) {
       setColleges({});
-      axios.get("http://localhost:3000/colleges").then((response) => {
+      axios.get("/colleges").then((response) => {
         setColleges(response.data);
         setGetColleges(false);
       });
