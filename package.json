@@ -4,7 +4,7 @@
   "description": "A website to find colleges near you.",
   "main": "index.js",
   "scripts": {
-    "build":"cd client && npm run build && cd .. && cd server && npm run prebuild && npm run build",
+    "build":"cd client && npm i && npm run build && cd .. && cd server && npm i && npm run prebuild && npm run build",
     "start":"cd server && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
