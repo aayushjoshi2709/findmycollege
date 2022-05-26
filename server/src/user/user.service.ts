@@ -11,6 +11,8 @@ export class UserService{
     constructor(@InjectRepository(UserEntity) private repo: Repository<UserEntity>){}
     async createUser(fname: string, lname: string, username: string, email: string, password: string){
         let checkUser = await this.repo.find({where: {email: email}});
+        //
+        
         if(checkUser.length > 0) throw new BadRequestException('User already exist');
         // hash the user pass
         // generate salt
@@ -47,6 +49,19 @@ export class UserService{
         if(!user) throw new NotFoundException('user not found');
         Object.assign(user, attrs);
         return this.repo.save(user);
+    }
+    async updatePassword(id:number,passold:string,passnew:string){
+        const user = await this.repo.findOne({where:{id:id}});
+        if(!user) throw new NotFoundException('user not found');
+        const [salt, storedHash] = user.password.split('.');
+        const hash = (await scrypt(passold, salt, 32)) as Buffer;
+        if(storedHash == hash.toString('hex')){
+            const salt = randomBytes(8).toString('hex');
+            const hash = (await scrypt(passnew, salt, 32)) as Buffer;
+            const result = salt + '.' + hash.toString('hex');
+            user.password = result;
+            return this.repo.save(user);
+        }else throw new BadRequestException('Invalid password');
     }
 
     async removeUser(id: number){

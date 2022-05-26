@@ -76,6 +76,14 @@ export class UserController {
     return user;
   }
 
+  @UseGuards(AuthGaurd)
+  @Post('updatepass')
+  async updatePass(@CurrentUser() currUser:UserDto, @Body() body) {
+
+    let user = await this.userService.updatePassword(currUser.id, body.passold, body.passnew);
+    return user;
+  }
+
   // signout
   @UseGuards(AuthGaurd)
   @Post('signout')

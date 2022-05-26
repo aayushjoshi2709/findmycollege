@@ -6,7 +6,6 @@ import { UseGuards } from "@nestjs/common";
 import { AuthGaurd } from "src/Gaurds/auth.gaurd";
 import { UserEntity } from "src/user/user.entity";
 import { CurrentUser } from "src/user/Decorators/current-user.decorator";
-import { userInfo } from "os";
 @Controller('colleges')
 export class CollegeController{
     constructor(private collegeService: CollegeService){}
@@ -50,5 +49,24 @@ export class CollegeController{
     async DeleteCollege(@CurrentUser() user:UserEntity, @Param('id') id: number){
         let res = await this.collegeService.removeCollege(user, id);
         return res;
+    }
+    // add comments router
+    @UseGuards(AuthGaurd)
+    @Post('comments')
+    async AddComment(@CurrentUser() user:UserEntity, @Body() body){
+        let res = await this.collegeService.addComment(body.text, user.id,body.collegeId);
+        return res;
+    }
+    // get all comments route
+    @Get('comments/:id')
+    async GetComment(@CurrentUser() user:UserEntity, @Param('id') id: number){
+        let res = await this.collegeService.getComments(id);
+        return res;
+    }
+    // delete comment
+    @UseGuards(AuthGaurd)
+    @Delete('comments/:id')
+    async DeleteComment(@CurrentUser() user:UserEntity, @Param('id') id: number){
+        let res = await this.collegeService.removeComment(user, id);        
     }
 }

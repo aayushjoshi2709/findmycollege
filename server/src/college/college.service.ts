@@ -3,12 +3,13 @@ import { CollegeEntity } from "./college.entity";
 import { Repository, Like } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/user/user.entity";
-
+import { CommentsEntity } from "./comments.entity";
 @Injectable()
 export class CollegeService{
-
-    constructor(@InjectRepository(CollegeEntity) private repo: Repository<CollegeEntity>){}
-    
+    constructor(@InjectRepository(CollegeEntity) private repo: Repository<CollegeEntity>,
+                @InjectRepository(CommentsEntity) private commentsRepo: Repository<CommentsEntity>,
+                @InjectRepository(UserEntity) private userRepo: Repository<UserEntity>
+    ){}
     async getAll(){
         let colleges = await this.repo.find({});
         return colleges;
@@ -31,7 +32,7 @@ export class CollegeService{
         return colleges;
     }
     async addCollege(name: string, website: string, userid: number, courses: string, address: string, phoneNo: number, about: string, location:string, imageUrl:string){
-        let college = await this.repo.create({
+        let college = this.repo.create({
             name: name,
             website: website,
             userid: userid,
@@ -57,5 +58,31 @@ export class CollegeService{
         if(!college) throw new NotFoundException('College not found');
         if(user.id != college.userid) throw new BadRequestException('you are not authorised for this operation');
         return this.repo.remove(college);
+    }   
+    async addComment(text:string, userid:number, collegeId:number){
+        let comment = this.commentsRepo.create({
+            userid: userid,
+            collegeid: collegeId,
+            text: text
+        })
+        return this.commentsRepo.save(comment);
+    }
+    async getComments(collegeId:number){
+        const comments = await this.commentsRepo.find({where:{collegeid: collegeId}});  
+        let tempComment:any = [...comments];
+        let res = {};
+        await Promise.all(Object.keys(tempComment).map(async (idx,key) => {
+            const uid = tempComment[key].userid;
+            let user: UserEntity = await Promise.resolve(this.userRepo.findOne({ where: { id: uid } }));
+            let resuser = {id:user.id, username:user.username};
+            tempComment[key].user = resuser;
+        }))
+        return tempComment;           
+    }
+    async removeComment(user: UserEntity,id: number){
+        const comment = await this.commentsRepo.findOne({where:{id: id}});
+        if(!comment) throw new NotFoundException('College not found');
+        if(user.id != comment.userid) throw new BadRequestException('you are not authorised for this operation');
+        return this.commentsRepo.remove(comment);
     }
 }
