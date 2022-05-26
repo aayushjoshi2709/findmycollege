@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 function SignUp({setCurrentUser}) {
+  const [UserTaken, setUserTaken] = useState(false);
+  const [SuccessSignup, setSuccessSignup] = useState(false);
   const initialValues = {
     fname: "",
     lname: "",
@@ -15,14 +17,14 @@ function SignUp({setCurrentUser}) {
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(values)
     axios.post("http://localhost:3000/users", values).then((res) => {
       if (res.status === 201) {
+        setSuccessSignup(true);
         setCurrentUser(res.data);
         navigate('/');
-      } else if (res.status === 400) {
-        console.log("error signing up");
       }
+    }).catch(function(error){
+      setUserTaken(true);
     });
     return false;
   }
@@ -43,6 +45,16 @@ function SignUp({setCurrentUser}) {
             }}
           >
             <h1 className="text-center display-2">SignUp</h1>
+            {
+              UserTaken?<div className="alert alert-danger my-3 text-center" role="alert">
+                Username/ Email already taken.
+              </div>:null
+            }
+            {
+              SuccessSignup?<div className="alert alert-success my-3 text-center" role="alert">
+                User signedUp Successfully!
+              </div>:null
+            }
             <div className="mb-1">
               <p>
                 First Name:
@@ -124,7 +136,7 @@ function SignUp({setCurrentUser}) {
               <button type="submit" className="btn btn-primary m-2">
                 SignUp
               </button>
-              <Link to="/user" className="btn btn-danger m-2">
+              <Link to="/user/login" className="btn btn-danger m-2">
                 Login
               </Link>
             </div>

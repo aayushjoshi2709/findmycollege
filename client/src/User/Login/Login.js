@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link} from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+
 function Login({ setCurrentUser }) {
+  const [FailedLogin, setFailedLogin] = useState(false);
+  const [SuccessLogin, setSuccessLogin] = useState(false);
   const initialValues = {
     username: "",
     password: "",
@@ -13,13 +16,14 @@ function Login({ setCurrentUser }) {
     evt.preventDefault();
     axios.post("http://localhost:3000/users/signin", values).then((res) => {
       if (res.status === 201) {
+        setSuccessLogin(true);
         setCurrentUser(res.data);
         navigate('/');
         return true;
-      } else if (res.status === 400) {
-        console.log("error signing in");
-        return false;
       }
+    }).catch(function(error){
+      setFailedLogin(true);
+      return false;
     });
     return false;
   }
@@ -34,12 +38,24 @@ function Login({ setCurrentUser }) {
     <div>
       <div className="container mt-2 d-flex justify-content-center">
         <div className="col-lg-8 bg-light m-5 p-3">
+
           <form
             onSubmit={(evt) => {
               HandleSubmit(evt);
             }}
           >
             <h1 className="text-center display-2">Login</h1>
+            {
+              FailedLogin?<div className="alert alert-danger my-3 text-center" role="alert">
+                Login Failed! Please check your username/password.
+              </div>:null
+            }
+            {
+              SuccessLogin?<div className="alert alert-success my-3 text-center" role="alert">
+                Login Successful!
+              </div>:null
+            }
+            
             <div className="mb-1">
               <p>
                 Username:

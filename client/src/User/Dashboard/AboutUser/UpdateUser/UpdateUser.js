@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 function UpdateUser({currentUser,setCurrentUser}) {
+  
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(false);
+  const [updateUserFailure, setUpdateUserFailure]  = useState(false);
   const initialValues = {
     fname: currentUser.fname,
     lname: currentUser.lname,
@@ -18,8 +21,9 @@ function UpdateUser({currentUser,setCurrentUser}) {
     axios.patch("http://localhost:3000/users", values).then((res) => {
       if (res.status === 200) {
         setCurrentUser(res.data);
+        setUpdateUserSuccess(true);
       } else if (res.status === 400) {
-        console.log("error signing up");
+        setUpdateUserFailure(true);
       }
     });
     return false;
@@ -33,13 +37,23 @@ function UpdateUser({currentUser,setCurrentUser}) {
   }
   return (
     <div>
-      <div className="container mt-5 d-flex justify-content-center">
-        <div className="col-lg-8 bg-light m-4 p-3">
-          <form
+      <div className="card p-4 mt-5" style={{width:"500px"}}>
+         <form
             onSubmit={(evt) => {
               handleSubmit(evt);
             }}
           >
+             <h2 className="text-center">About User</h2>
+             {
+              updateUserFailure?<div className="alert alert-danger my-3 text-center" role="alert">
+                Error Updating User
+              </div>:null
+            }
+            {
+              updateUserSuccess?<div className="alert alert-success my-3 text-center" role="alert">
+                User Updated Successfully!
+              </div>:null
+            }
              <div className="m-2">
               <p>
                 First Name:
@@ -107,7 +121,6 @@ function UpdateUser({currentUser,setCurrentUser}) {
             </div>
           </form>
         </div>
-      </div>
     </div>
   );
 }

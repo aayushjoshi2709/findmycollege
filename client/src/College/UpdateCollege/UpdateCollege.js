@@ -5,7 +5,8 @@ function UpdateCollege({setGetColleges}) {
     const { id } = useParams();
     const [collegeData, setCollegeData] = useState({});
     const [newCollege, setNewCollege] = useState({});
-    
+    const [updateSuccess, setUpdateSuccess] = useState(false);
+    const [updateFailure, setUpdateFailure]  = useState(false);
     useEffect(() => {
       axios.get('http://localhost:3000/colleges/' + parseInt(id)).then((res)=>{
         setCollegeData(res.data);
@@ -32,9 +33,10 @@ function UpdateCollege({setGetColleges}) {
           axios.patch(`http://localhost:3000/colleges/${id}`, newCollege).then((response) => { 
           if(response.status === 200){
                 setGetColleges(true);
+                setUpdateSuccess(true);
           }
           }).catch(function (error) {
-            console.log(error);
+            setUpdateFailure(true);
           });
        }
     }, [newCollege]);
@@ -44,29 +46,39 @@ function UpdateCollege({setGetColleges}) {
         <div className='col-lg-8 bg-light m-4  p-3'>
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Update College</h1>
+                {
+              updateFailure?<div className="alert alert-danger my-3 text-center" role="alert">
+                Error Updating College
+              </div>:null
+            }
+            {
+              updateSuccess?<div className="alert alert-success my-3 text-center" role="alert">
+                College Updated Successfully!
+              </div>:null
+            }
                 <div className="mb-1">
-                    <p>College Name: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='name' className="form-control" id="name" placeholder={collegeData.name}/></p>
+                    <p>College Name: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='name' className="form-control" id="name" value={collegeData.name}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Website: <input onChange={(evt) =>{handleChange(evt)}} type="url" name='website' className="form-control" id="website" placeholder={collegeData.website}/></p>
+                    <p>Website: <input onChange={(evt) =>{handleChange(evt)}} type="url" name='website' className="form-control" id="website" value={collegeData.website}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Courses Offered: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="courses" name='courses' placeholder={collegeData.courses}/></p>
+                    <p>Courses Offered: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="courses" name='courses' value={collegeData.courses}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Address: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id='address' name='address' placeholder={collegeData.address}/></p>
+                    <p>Address: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id='address' name='address' value={collegeData.address}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Phone No: <input onChange={(evt) =>{handleChange(evt)}} type="number" className="form-control" name='phoneNo' id='phoneNo' placeholder={collegeData.phoneNo}/></p>
+                    <p>Phone No: <input onChange={(evt) =>{handleChange(evt)}} type="number" className="form-control" name='phoneNo' id='phoneNo' value={collegeData.phoneNo}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>About: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="about" name='about' placeholder={collegeData.about}/></p>
+                    <p>About: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="about" name='about' value={collegeData.about}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Location: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="location" name='location' placeholder={collegeData.location}/></p>
+                    <p>Location: <input onChange={(evt) =>{handleChange(evt)}} type="text" className="form-control" id="location" name='location' value={collegeData.location}/></p>
                 </div>
                 <div className="mb-1">
-                    <p>Image Url: <input onChange={(evt) =>{handleChange(evt)}} type="url" className="form-control" id="iurl" name='imageUrl' placeholder={collegeData.imageUrl}/></p>
+                    <p>Image Url: <input onChange={(evt) =>{handleChange(evt)}} type="url" className="form-control" id="iurl" name='imageUrl' value={collegeData.imageUrl}/></p>
                 </div>
                 <div className='text-center'>
                     <button type="submit" className="btn btn-primary m-2">Update</button>

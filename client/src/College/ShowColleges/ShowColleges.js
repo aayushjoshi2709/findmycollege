@@ -6,7 +6,7 @@ function ShowColleges({colleges}) {
     <div className='container mt-5'>
         {
             Object.keys(colleges).map((id, i) => (
-                <CollegeCard college={colleges[id]}/>
+                <CollegeCard key={id} college={colleges[id]}/>
             ))
         }
     </div>

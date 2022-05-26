@@ -4,6 +4,8 @@ import axios from 'axios';
 function AddCollege({setGetColleges}) {
     const navigate = useNavigate();
     const [newCollege, setNewCollege] = useState({});
+    const [addSuccess, setAddSuccess] = useState(false);
+    const [addFailure, setAddFailure]  = useState(false);
     const initialValues = {
         name: "",
         website: "",
@@ -15,8 +17,7 @@ function AddCollege({setGetColleges}) {
         url:"",
     };
     const [values, setValues] = useState(initialValues);
-    function handleSubmit(evt){
-        
+    function handleSubmit(evt){        
         evt.preventDefault();
         setNewCollege(values);
     }
@@ -33,10 +34,11 @@ function AddCollege({setGetColleges}) {
           axios.post(`http://localhost:3000/colleges`, newCollege).then((response) => { 
           if(response.status === 201){
                 setGetColleges(true);
-                navigate('/');
+                setAddSuccess(true);
+                setValues(initialValues);
           }
           }).catch(function (error) {
-            console.log(error);
+            setAddFailure(true);
           });
        }
     }, [newCollege]);
@@ -45,6 +47,16 @@ function AddCollege({setGetColleges}) {
         <div className='col-lg-8 bg-light m-4  p-3'>
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Add New College</h1>
+            {
+              addFailure?<div className="alert alert-danger my-3 text-center" role="alert">
+                Error adding College
+              </div>:null
+            }
+            {
+              addSuccess?<div className="alert alert-success my-3 text-center" role="alert">
+                College Added Successfully!
+              </div>:null
+            }
                 <div className="mb-1">
                     <p>College Name: <input onChange={(evt) =>{handleChange(evt)}} type="text" name='name' required className="form-control" id="name"/></p>
                 </div>

@@ -1,9 +1,16 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import SideBar from '../SideBar/Sidebar';
-function AccountSettings() {
+import UserSettings from './UserSettings/UserSettings';
+function AccountSettings({currentUser, setHighlight, Highlight}) {
+  useEffect(() => {
+    setHighlight(3);
+  })
   return (
     <>
-        <SideBar/>
+        <SideBar Highlight = {Highlight}/>
+        <div className="content d-flex justify-content-center bg-body" style={{height: '41.55rem'}}>
+          <UserSettings/>   
+        </div>
     </>
   )
 }

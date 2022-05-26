@@ -6,7 +6,7 @@ function ContactInfo({college}) {
        <div className="card-body">
         <h5 className="card-title"><u>Contact Information</u></h5>
         <p className="card-text">
-          <b>Address:</b> {college.location}<br/>          
+          <b>Address:</b> {college.address}<br/>          
           <b>PhoneNo:</b> {college.phoneNo}<br/>
           <b>Website:</b> {college.website}<br/>
         </p>
