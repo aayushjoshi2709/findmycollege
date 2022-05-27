@@ -2,8 +2,6 @@ import axios from 'axios'
 import React from 'react'
 
 function Comments({comment,currentUser, setReloadComments}) {
-  console.log(comment)
-  console.log(currentUser)
   function deleteComment(){
     axios.delete("/colleges/comments/"+parseInt(comment.id)).then((res)=>{
       if(res.status == 200){

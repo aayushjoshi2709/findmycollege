@@ -2,7 +2,7 @@ import React from "react";
 import AddComments from "./AddComments/AddComments";
 import Comments from "./Comments/Comments";
 function CommentsCard({ currentUser, collegeComments, id, setReloadComments} ) {
-  console.log(collegeComments);
+
   return (
     <>
       <div className="card shadow-lg m-2 mb-5 bg-white rounded d-flex flex-row">
