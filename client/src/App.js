@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     setFoundColleges({});
     axios
-      .get(`http://localhost:3000/colleges/search/${search}`)
+      .get(`/colleges/search/${search}`)
       .then((response) => {
         setFoundColleges(response.data);
       });

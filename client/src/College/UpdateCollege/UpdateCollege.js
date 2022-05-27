@@ -8,7 +8,7 @@ function UpdateCollege({setGetColleges}) {
     const [updateSuccess, setUpdateSuccess] = useState(false);
     const [updateFailure, setUpdateFailure]  = useState(false);
     useEffect(() => {
-      axios.get('http://localhost:3000/colleges/' + parseInt(id)).then((res)=>{
+      axios.get('/colleges/' + parseInt(id)).then((res)=>{
         setCollegeData(res.data);
       });
     }, [id])
@@ -30,7 +30,7 @@ function UpdateCollege({setGetColleges}) {
         if(Object.keys(newCollege).length !== 0){
           if(newCollege.phoneNo)
             newCollege.phoneNo = parseInt(newCollege.phoneNo);
-          axios.patch(`http://localhost:3000/colleges/${id}`, newCollege).then((response) => { 
+          axios.patch(`/colleges/${id}`, newCollege).then((response) => { 
           if(response.status === 200){
                 setGetColleges(true);
                 setUpdateSuccess(true);

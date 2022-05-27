@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 function CollegeTableRow({id,college,setGetColleges, setDeleteCollegeFailure, setDeleteCollegeSuccess}) {
   function deletecollege(id){
-    axios.delete('http://localhost:3000/colleges/' + id).then((res) =>{
+    axios.delete('/colleges/' + id).then((res) =>{
       if(res.status === 200){
         setDeleteCollegeSuccess(true);
         setGetColleges(true);
