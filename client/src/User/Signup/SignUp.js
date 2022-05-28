@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 function SignUp({setCurrentUser}) {
-  const [UserTaken, setUserTaken] = useState(false);
-  const [SuccessSignup, setSuccessSignup] = useState(false);
+  const [SuccessState, setSuccessState] = useState(0);
   const initialValues = {
     fname: "",
     lname: "",
@@ -19,12 +18,12 @@ function SignUp({setCurrentUser}) {
     evt.preventDefault();
     axios.post("/users", values).then((res) => {
       if (res.status === 201) {
-        setSuccessSignup(true);
+        setSuccessSignup(1);
         setCurrentUser(res.data);
         navigate('/');
       }
     }).catch(function(error){
-      setUserTaken(true);
+      setUserTaken(2);
     });
     return false;
   }
@@ -46,12 +45,12 @@ function SignUp({setCurrentUser}) {
           >
             <h1 className="text-center display-2">SignUp</h1>
             {
-              UserTaken?<div className="alert alert-danger my-3 text-center" role="alert">
+              SuccessState == 2?<div className="alert alert-danger my-3 text-center" role="alert">
                 Username/ Email already taken.
               </div>:null
             }
             {
-              SuccessSignup?<div className="alert alert-success my-3 text-center" role="alert">
+              SuccessState == 1?<div className="alert alert-success my-3 text-center" role="alert">
                 User signedUp Successfully!
               </div>:null
             }

@@ -85,6 +85,7 @@ function UserSettings({ currentUser, setCurrentUser }) {
                 name="passnew"
                 className="form-control"
                 id="passnew"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
               />
             </p>
           </div>
@@ -99,6 +100,7 @@ function UserSettings({ currentUser, setCurrentUser }) {
                 name="cpassnew"
                 className="form-control"
                 id="cpassnew"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
               />
             </p>
           </div>
