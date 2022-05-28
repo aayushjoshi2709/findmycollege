@@ -18,12 +18,12 @@ function SignUp({setCurrentUser}) {
     evt.preventDefault();
     axios.post("/users", values).then((res) => {
       if (res.status === 201) {
-        setSuccessSignup(1);
+        setSuccessState(1);
         setCurrentUser(res.data);
         navigate('/');
       }
     }).catch(function(error){
-      setUserTaken(2);
+      setSuccessState(2);
     });
     return false;
   }
