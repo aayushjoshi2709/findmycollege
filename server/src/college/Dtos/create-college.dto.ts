@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsUrl } from "class-validator";
+import { IsString, IsNumber, IsUrl, IsNumberString } from "class-validator";
 
 export class CreateCollegeDto{
     @IsString()
@@ -9,8 +9,8 @@ export class CreateCollegeDto{
     courses: string;
     @IsString()
     address: string;
-    @IsNumber()
-    phoneNo: number;
+    @IsNumberString()
+    phoneNo: string;
     @IsString()
     about: string
     @IsString()

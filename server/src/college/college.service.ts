@@ -31,7 +31,7 @@ export class CollegeService{
         });
         return colleges;
     }
-    async addCollege(name: string, website: string, userid: number, courses: string, address: string, phoneNo: number, about: string, location:string, imageUrl:string){
+    async addCollege(name: string, website: string, userid: number, courses: string, address: string, phoneNo: string, about: string, location:string, imageUrl:string){
         let college = this.repo.create({
             name: name,
             website: website,
