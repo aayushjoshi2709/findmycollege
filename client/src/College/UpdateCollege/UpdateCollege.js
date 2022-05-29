@@ -20,6 +20,10 @@ function UpdateCollege({setGetColleges}) {
     }
     function handleChange(evt){
         const { name, value } = evt.target;
+        setCollegeData({
+          ...values,
+          [name]: value,
+        });
         setValues({
         ...values,
         [name]: value,
@@ -29,8 +33,8 @@ function UpdateCollege({setGetColleges}) {
         if(Object.keys(newCollege).length !== 0){
           axios.patch(`/colleges/${id}`, newCollege).then((response) => { 
           if(response.status === 200){
-                setGetColleges(true);
-                setUpdateCollegeStatus(2);
+            setUpdateCollegeStatus(2);
+            setGetColleges(true);    
           }
           }).catch(function (error) {
             setUpdateCollegeStatus(1);
@@ -44,12 +48,12 @@ function UpdateCollege({setGetColleges}) {
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Update College</h1>
                 {
-              updateCollegeStatus == 1?<div className="alert alert-danger my-3 text-center" role="alert">
+              updateCollegeStatus === 1?<div className="alert alert-danger my-3 text-center" role="alert">
                 Error Updating College
               </div>:null
             }
             {
-              updateCollegeStatus == 2?<div className="alert alert-success my-3 text-center" role="alert">
+              updateCollegeStatus === 2?<div className="alert alert-success my-3 text-center" role="alert">
                 College Updated Successfully!
               </div>:null
             }
