@@ -1,23 +1,34 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { UserEntity } from './user/user.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 import { CollegeModule } from './college/college.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CollegeEntity } from './college/college.entity';
+import { CommentsEntity } from './college/comments.entity';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/build'),
     }),
     TypeOrmModule.forRoot({
+      name: "default",
       type: 'postgres',
       url: process.env.DATABASE_URL,
+      entities: [UserEntity, CollegeEntity, CommentsEntity],
+      synchronize: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false
+        }
+      }
     }),
     UserModule,
-    CollegeModule,
+    CollegeModule
   ],
   controllers: [AppController],
   providers: [AppService],
