@@ -4,8 +4,7 @@ import axios from 'axios';
 function AddCollege({setGetColleges}) {
     const navigate = useNavigate();
     const [newCollege, setNewCollege] = useState({});
-    const [addSuccess, setAddSuccess] = useState(false);
-    const [addFailure, setAddFailure]  = useState(false);
+    const [addCollegeStatus, setAddCollegeStatus] = useState(0);
     const initialValues = {
         name: "",
         website: "",
@@ -33,11 +32,11 @@ function AddCollege({setGetColleges}) {
           axios.post(`/colleges`, newCollege).then((response) => { 
           if(response.status === 201){
                 setGetColleges(true);
-                setAddSuccess(true);
+                setAddCollegeStatus(2);
                 setValues(initialValues);
           }
           }).catch(function (error) {
-            setAddFailure(true);
+            setAddCollegeStatus(1);
           });
        }
     }, [newCollege]);
@@ -47,12 +46,12 @@ function AddCollege({setGetColleges}) {
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Add New College</h1>
             {
-              addFailure?<div className="alert alert-danger my-3 text-center" role="alert">
+              addCollegeStatus == 1?<div className="alert alert-danger my-3 text-center" role="alert">
                 Error adding College
               </div>:null
             }
             {
-              addSuccess?<div className="alert alert-success my-3 text-center" role="alert">
+              addCollegeStatus == 2?<div className="alert alert-success my-3 text-center" role="alert">
                 College Added Successfully!
               </div>:null
             }
