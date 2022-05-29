@@ -30,7 +30,6 @@ function AddCollege({setGetColleges}) {
     }
     useEffect(() => {
         if(Object.keys(newCollege).length !== 0){
-          newCollege.phoneNo = parseInt(newCollege.phoneNo);
           axios.post(`/colleges`, newCollege).then((response) => { 
           if(response.status === 201){
                 setGetColleges(true);

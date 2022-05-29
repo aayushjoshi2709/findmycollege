@@ -28,8 +28,6 @@ function UpdateCollege({setGetColleges}) {
     }
     useEffect(() => {
         if(Object.keys(newCollege).length !== 0){
-          if(newCollege.phoneNo)
-            newCollege.phoneNo = parseInt(newCollege.phoneNo);
           axios.patch(`/colleges/${id}`, newCollege).then((response) => { 
           if(response.status === 200){
                 setGetColleges(true);

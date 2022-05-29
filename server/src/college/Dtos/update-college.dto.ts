@@ -15,7 +15,7 @@ export class UpdateCollegeDto{
     address: string;
     @IsOptional()
     @IsNumberString()
-    phoneNo: string;
+    phoneNo: String;
     @IsOptional()
     @IsString()
     about: string

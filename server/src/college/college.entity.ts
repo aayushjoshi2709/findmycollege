@@ -14,8 +14,8 @@ export class CollegeEntity{
     courses: string;
     @Column()
     address: string;
-    @Column({nullable: false,type:'bigint'})
-    phoneNo: string;
+    @Column({type:'bigint', nullable: false})
+    phoneNo: String;
     @Column()
     about: string
     @Column()

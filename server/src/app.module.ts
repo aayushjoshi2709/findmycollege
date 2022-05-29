@@ -17,7 +17,7 @@ import { CommentsEntity } from './college/comments.entity';
     TypeOrmModule.forRoot({
       name: "default",
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: "postgres://yogacijnhfofzr:de1f762a72262f127363b016833c263d46d13a757582c84bc5b3bfd20b1933fe@ec2-3-211-221-185.compute-1.amazonaws.com:5432/d2frt1kfi7qglg",
       entities: [UserEntity, CollegeEntity, CommentsEntity],
       synchronize: true,
       ssl: true,
