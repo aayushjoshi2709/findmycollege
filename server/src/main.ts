@@ -16,7 +16,7 @@ async function bootstrap() {
     })
   )
   app.use(cookieSession({
-    keys: ['asdfasdf']
+    keys: [process.env.KEYS]
   }));
   await app.listen(process.env.PORT || 3000);
 }

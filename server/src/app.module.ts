@@ -7,19 +7,22 @@ import { CollegeModule } from './college/college.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ConfigModule } from '@nestjs/config';
 import { CollegeEntity } from './college/college.entity';
 import { CommentsEntity } from './college/comments.entity';
 @Module({
   imports: [
+
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/build'),
     }),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       name: "default",
       type: 'postgres',
-      url: "postgres://yogacijnhfofzr:de1f762a72262f127363b016833c263d46d13a757582c84bc5b3bfd20b1933fe@ec2-3-211-221-185.compute-1.amazonaws.com:5432/d2frt1kfi7qglg",
+      url: process.env.DATABASE_URL,
       entities: [UserEntity, CollegeEntity, CommentsEntity],
-      synchronize: true,
+      synchronize:  process.env.SYNCHRONIZE === "True",
       ssl: true,
       extra: {
         ssl: {
