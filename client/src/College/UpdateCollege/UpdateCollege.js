@@ -5,8 +5,7 @@ function UpdateCollege({setGetColleges}) {
     const { id } = useParams();
     const [collegeData, setCollegeData] = useState({});
     const [newCollege, setNewCollege] = useState({});
-    const [updateSuccess, setUpdateSuccess] = useState(false);
-    const [updateFailure, setUpdateFailure]  = useState(false);
+    const [updateCollegeStatus, setUpdateCollegeStatus] = useState(0);
     useEffect(() => {
       axios.get('/colleges/' + parseInt(id)).then((res)=>{
         setCollegeData(res.data);
@@ -31,10 +30,10 @@ function UpdateCollege({setGetColleges}) {
           axios.patch(`/colleges/${id}`, newCollege).then((response) => { 
           if(response.status === 200){
                 setGetColleges(true);
-                setUpdateSuccess(true);
+                setUpdateCollegeStatus(2);
           }
           }).catch(function (error) {
-            setUpdateFailure(true);
+            setUpdateCollegeStatus(1);
           });
        }
     }, [newCollege]);
@@ -45,12 +44,12 @@ function UpdateCollege({setGetColleges}) {
             <form onSubmit={(evt)=>{handleSubmit(evt)} }>
                 <h1 className='text-center display-2'>Update College</h1>
                 {
-              updateFailure?<div className="alert alert-danger my-3 text-center" role="alert">
+              updateCollegeStatus == 1?<div className="alert alert-danger my-3 text-center" role="alert">
                 Error Updating College
               </div>:null
             }
             {
-              updateSuccess?<div className="alert alert-success my-3 text-center" role="alert">
+              updateCollegeStatus == 2?<div className="alert alert-success my-3 text-center" role="alert">
                 College Updated Successfully!
               </div>:null
             }
