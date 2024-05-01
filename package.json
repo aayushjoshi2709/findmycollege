@@ -1,5 +1,5 @@
 {
-  "name": "GetMyCollege",
+  "name": "Find My College",
   "version": "1.0.0",
   "description": "A website to find colleges near you.",
   "main": "index.js",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaayush27/GetMyCollege.git"
+    "url": "git+https://github.com/aayushjoshi2709/GetMyCollege.git"
   },
   "author": "Aayush Joshi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jaayush27/GetMyCollege/issues"
+    "url": "https://github.com/aayushjoshi2709/GetMyCollege/issues"
   },
-  "homepage": "https://github.com/jaayush27/GetMyCollege#readme"
+  "homepage": "https://github.com/aayushjoshi2709/GetMyCollege#readme"
 }
