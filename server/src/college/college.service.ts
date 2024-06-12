@@ -98,7 +98,6 @@ export class CollegeService {
       where: { collegeid: collegeId },
     });
     const tempComment: any = [...comments];
-    const res = {};
     await Promise.all(
       Object.keys(tempComment).map(async (idx, key) => {
         const uid = tempComment[key].userid;

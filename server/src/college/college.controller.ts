@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Body,
-  UseInterceptors,
 } from '@nestjs/common';
 import { CollegeService } from './college.service';
 import { CreateCollegeDto } from './Dtos/create-college.dto';
@@ -103,6 +102,6 @@ export class CollegeController {
     @CurrentUser() user: UserEntity,
     @Param('id') id: number,
   ) {
-    const res = await this.collegeService.removeComment(user, id);
+    await this.collegeService.removeComment(user, id);
   }
 }

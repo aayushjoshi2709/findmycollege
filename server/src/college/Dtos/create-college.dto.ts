@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsUrl, IsNumberString } from 'class-validator';
+import { IsString, IsUrl, IsNumberString } from 'class-validator';
 
 export class CreateCollegeDto {
   @IsString()
