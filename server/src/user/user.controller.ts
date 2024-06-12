@@ -6,7 +6,7 @@ import {
   Patch,
   Post,
   Session,
-  Res
+  Res,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './Dtos/create-user.dto';
@@ -23,12 +23,12 @@ import { Response } from 'express';
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
- 
+
   // get all users
   @UseGuards(AuthGaurd)
   @Get()
   async getUser() {
-    let users = await this.userService.getAllUser();
+    const users = await this.userService.getAllUser();
     return users;
   }
   @UseGuards(AuthGaurd)
@@ -40,7 +40,10 @@ export class UserController {
   // delete a user
   @UseGuards(AuthGaurd)
   @Delete()
-  deleteUser(@Res({ passthrough: true }) response: Response,@CurrentUser() user: UserEntity) {
+  deleteUser(
+    @Res({ passthrough: true }) response: Response,
+    @CurrentUser() user: UserEntity,
+  ) {
     this.userService.removeUser(user.id);
     response.clearCookie('userid');
     return null;
@@ -49,15 +52,18 @@ export class UserController {
   // update user
   @UseGuards(AuthGaurd)
   @Patch()
-  async updateUser(@CurrentUser() user: UserEntity, @Body() body: UpdateUserDto) {
-    let res = await this.userService.updateUser(user.id, body);
+  async updateUser(
+    @CurrentUser() user: UserEntity,
+    @Body() body: UpdateUserDto,
+  ) {
+    const res = await this.userService.updateUser(user.id, body);
     return res;
   }
 
   // create new user
   @Post()
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
-    let user = await this.userService.createUser(
+    const user = await this.userService.createUser(
       body.fname,
       body.lname,
       body.username,
@@ -70,24 +76,27 @@ export class UserController {
 
   // signin
   @Post('signin')
-  async signIn(@Session() session:any, @Body() body: SignInUserDto) {
-    let user = await this.userService.signIn(body.username, body.password);
+  async signIn(@Session() session: any, @Body() body: SignInUserDto) {
+    const user = await this.userService.signIn(body.username, body.password);
     session.userid = user.id;
     return user;
   }
 
   @UseGuards(AuthGaurd)
   @Post('updatepass')
-  async updatePass(@CurrentUser() currUser:UserDto, @Body() body) {
-
-    let user = await this.userService.updatePassword(currUser.id, body.passold, body.passnew);
+  async updatePass(@CurrentUser() currUser: UserDto, @Body() body) {
+    const user = await this.userService.updatePassword(
+      currUser.id,
+      body.passold,
+      body.passnew,
+    );
     return user;
   }
 
   // signout
   @UseGuards(AuthGaurd)
   @Post('signout')
-  signout( @Session() session: any) {
+  signout(@Session() session: any) {
     session.userid = -1;
   }
 }

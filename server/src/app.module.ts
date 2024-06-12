@@ -12,26 +12,25 @@ import { CollegeEntity } from './college/college.entity';
 import { CommentsEntity } from './college/comments.entity';
 @Module({
   imports: [
-
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '../../', 'client/build'),
     }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      name: "default",
+      name: 'default',
       type: 'postgres',
       url: process.env.DATABASE_URL,
       entities: [UserEntity, CollegeEntity, CommentsEntity],
-      synchronize:  process.env.SYNCHRONIZE === "True",
+      synchronize: process.env.SYNCHRONIZE === 'True',
       ssl: true,
       extra: {
         ssl: {
-          rejectUnauthorized: false
-        }
-      }
+          rejectUnauthorized: false,
+        },
+      },
     }),
     UserModule,
-    CollegeModule
+    CollegeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
