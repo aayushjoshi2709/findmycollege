@@ -20,15 +20,11 @@ import { CommentsEntity } from './college/comments.entity';
       name: 'default',
       type: 'postgres',
       url: process.env.DB_URL,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
       entities: [UserEntity, CollegeEntity, CommentsEntity],
-      synchronize: process.env.SYNCHRONIZE === 'True',
-      ssl: true,
+      synchronize: process.env.DB_SYNC === 'true',
+      ssl: process.env.DB_SSL === 'true',
       extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
+        ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
       },
     }),
     UserModule,

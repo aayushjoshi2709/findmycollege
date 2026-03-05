@@ -7,19 +7,18 @@ function UserSettings({ currentUser, setCurrentUser }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     if (values.passnew !== values.cpassnew) {
-        setPasswordStatus(2);
+      setPasswordStatus(2);
     } else {
       axios
-        .post("/users/updatepass", values)
+        .post("/api/users/updatepass", values)
         .then((res) => {
           if (res.status === 201) {
             setPasswordStatus(1);
           }
-        }).catch(function(error){
-            if(error.response.status === 400)
-              setPasswordStatus(3);
-            else
-              setPasswordStatus(4);
+        })
+        .catch(function (error) {
+          if (error.response.status === 400) setPasswordStatus(3);
+          else setPasswordStatus(4);
         });
     }
     return false;

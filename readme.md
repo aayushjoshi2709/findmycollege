@@ -13,8 +13,8 @@ To setup this service you will need a postgres database instance and then you ne
 
     ```
     DB_URL=<postgres database url>
-    DB_USER=<username for the database to access>
-    DB_PASS=<password for the database used>
+    DB_SYNC=<weather to syncronize database in realtime or not>
+    DB_SSL=<weather to use ssl for db connect or not>
     PORT=<port to run the application>
     KEYS=<secret key for the cookie used>
     ```

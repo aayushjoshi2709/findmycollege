@@ -9,7 +9,7 @@ function AddComments({ id, setReloadComments }) {
       text: Text,
       collegeId: id,
     };
-    axios.post("/colleges/comments/", data).then((res) => {
+    axios.post("/api/colleges/comments/", data).then((res) => {
       if (res.status == 201) {
         setReloadComments(true);
       }
@@ -33,7 +33,7 @@ function AddComments({ id, setReloadComments }) {
                   placeholder="Add New Comments..."
                   type="text"
                   className="form-control my-2"
-                  style={{width:"300px"}}
+                  style={{ width: "300px" }}
                 />
               </td>
               <td>

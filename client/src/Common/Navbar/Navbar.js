@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 function Navbar({ currentUser, setCurrentUser }) {
   const logMeOut = () => {
-    axios
-      .post("/users/signout")
-      .then((res) => {
-        if (res.status === 201) {
-          setCurrentUser({});
-        }
-      });
+    axios.post("/api/users/signout").then((res) => {
+      if (res.status === 201) {
+        setCurrentUser({});
+      }
+    });
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -70,56 +68,58 @@ function Navbar({ currentUser, setCurrentUser }) {
               </ul>
             </li>
             <li className="nav-item dropdown">
-            <Link
-              className="nav-link dropdown-toggle"
-              to="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {currentUser.username
-                ? "Hi, " + currentUser.username
-                : "Login / Signup"}
-            </Link>
-            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              {currentUser.username ? (
-                <>
-                  <li>
-                    <Link className="dropdown-item" to="/user/dashboard">
-                      Dashboard
-                    </Link>
-                  </li>
-                  <div className="dropdown-divider"></div>
-                  <li>
-                    <Link
-                      className="dropdown-item"
-                      to="/"
-                      onClick={() => logMeOut()}
-                    >
-                      logout
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link className="dropdown-item" to="/user/login">
-                      Login
-                    </Link>
-                  </li>
-                  <div className="dropdown-divider"></div>
-                  <li>
-                    <Link className="dropdown-item" to="/user/new">
-                      Signup
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </li>
+              <Link
+                className="nav-link dropdown-toggle"
+                to="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {currentUser.username
+                  ? "Hi, " + currentUser.username
+                  : "Login / Signup"}
+              </Link>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                {currentUser.username ? (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/user/dashboard">
+                        Dashboard
+                      </Link>
+                    </li>
+                    <div className="dropdown-divider"></div>
+                    <li>
+                      <Link
+                        className="dropdown-item"
+                        to="/"
+                        onClick={() => logMeOut()}
+                      >
+                        logout
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link className="dropdown-item" to="/user/login">
+                        Login
+                      </Link>
+                    </li>
+                    <div className="dropdown-divider"></div>
+                    <li>
+                      <Link className="dropdown-item" to="/user/new">
+                        Signup
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
+            </li>
           </ul>
-          
         </div>
       </div>
     </nav>

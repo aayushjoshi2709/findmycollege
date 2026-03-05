@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-function SignUp({setCurrentUser}) {
+function SignUp({ setCurrentUser }) {
   const [SuccessState, setSuccessState] = useState(0);
   const initialValues = {
     fname: "",
@@ -16,15 +16,18 @@ function SignUp({setCurrentUser}) {
   const [values, setValues] = useState(initialValues);
   function handleSubmit(evt) {
     evt.preventDefault();
-    axios.post("/users", values).then((res) => {
-      if (res.status === 201) {
-        setSuccessState(1);
-        setCurrentUser(res.data);
-        navigate('/');
-      }
-    }).catch(function(error){
-      setSuccessState(2);
-    });
+    axios
+      .post("/api/users", values)
+      .then((res) => {
+        if (res.status === 201) {
+          setSuccessState(1);
+          setCurrentUser(res.data);
+          navigate("/");
+        }
+      })
+      .catch(function (error) {
+        setSuccessState(2);
+      });
     return false;
   }
   function handleChange(evt) {
@@ -44,16 +47,19 @@ function SignUp({setCurrentUser}) {
             }}
           >
             <h1 className="text-center display-2">SignUp</h1>
-            {
-              SuccessState == 2?<div className="alert alert-danger my-3 text-center" role="alert">
+            {SuccessState == 2 ? (
+              <div className="alert alert-danger my-3 text-center" role="alert">
                 Username/ Email already taken.
-              </div>:null
-            }
-            {
-              SuccessState == 1?<div className="alert alert-success my-3 text-center" role="alert">
+              </div>
+            ) : null}
+            {SuccessState == 1 ? (
+              <div
+                className="alert alert-success my-3 text-center"
+                role="alert"
+              >
                 User signedUp Successfully!
-              </div>:null
-            }
+              </div>
+            ) : null}
             <div className="mb-1">
               <p>
                 First Name:

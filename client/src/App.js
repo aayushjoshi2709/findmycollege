@@ -16,7 +16,7 @@ import AccountSettings from "./User/Dashboard/AccountSettings/AccountSettings";
 
 function App() {
   axios.defaults.withCredentials = true;
-  if(process.env.NODE_ENV !=='production')
+  if (process.env.NODE_ENV !== "production")
     axios.defaults.baseURL = "http://localhost:3000";
   const [colleges, setColleges] = useState({});
   const [foundColleges, setFoundColleges] = useState({});
@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     if (getColleges) {
       setColleges({});
-      axios.get("/colleges").then((response) => {
+      axios.get("/api/colleges").then((response) => {
         setColleges(response.data);
         setGetColleges(false);
       });
@@ -36,11 +36,9 @@ function App() {
 
   useEffect(() => {
     setFoundColleges({});
-    axios
-      .get(`/colleges/search/${search}`)
-      .then((response) => {
-        setFoundColleges(response.data);
-      });
+    axios.get(`/api/colleges/search/${search}`).then((response) => {
+      setFoundColleges(response.data);
+    });
   }, [search]);
 
   return (
@@ -68,11 +66,14 @@ function App() {
               path="update/:id"
               element={
                 <RequireAuth currentUser={currentUser}>
-                  <UpdateCollege setGetColleges={setGetColleges}/>
+                  <UpdateCollege setGetColleges={setGetColleges} />
                 </RequireAuth>
               }
             />
-            <Route path="about/:id" element={<About currentUser={currentUser}/>} />
+            <Route
+              path="about/:id"
+              element={<About currentUser={currentUser} />}
+            />
           </Route>
           <Route path="user">
             <Route path="dashboard">
@@ -83,8 +84,8 @@ function App() {
                     <AboutUser
                       currentUser={currentUser}
                       setCurrentUser={setCurrentUser}
-                      setHighlight= {setHighlight}
-                      Highlight = {Highlight}
+                      setHighlight={setHighlight}
+                      Highlight={Highlight}
                     />
                   </RequireAuth>
                 }
@@ -97,8 +98,8 @@ function App() {
                       colleges={colleges}
                       currentUser={currentUser}
                       setGetColleges={setGetColleges}
-                      setHighlight= {setHighlight}
-                      Highlight = {Highlight}
+                      setHighlight={setHighlight}
+                      Highlight={Highlight}
                     />
                   </RequireAuth>
                 }
@@ -107,9 +108,10 @@ function App() {
                 path="AccountSettings"
                 element={
                   <RequireAuth currentUser={currentUser}>
-                    <AccountSettings currentUser={currentUser} 
-                      setHighlight= {setHighlight}
-                      Highlight = {Highlight}
+                    <AccountSettings
+                      currentUser={currentUser}
+                      setHighlight={setHighlight}
+                      Highlight={Highlight}
                     />
                   </RequireAuth>
                 }
@@ -124,7 +126,6 @@ function App() {
               element={<SignUp setCurrentUser={setCurrentUser} />}
             />
           </Route>
-          
         </Routes>
       </Router>
     </>

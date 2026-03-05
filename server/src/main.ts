@@ -18,6 +18,7 @@ async function bootstrap() {
       keys: [process.env.KEYS],
     }),
   );
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

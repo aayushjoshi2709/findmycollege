@@ -7,28 +7,24 @@ import DescCard from "./DescCard/DescCard";
 import ContactInfo from "./ContactInfo/ContactInfo";
 import CommentsCard from "./CommentsCard/CommentsCard";
 
-function About({currentUser}) {
+function About({ currentUser }) {
   const { id } = useParams();
   const [collegeData, setCollegeData] = useState({});
   const [collegeComments, setCollegeComments] = useState({});
   const [ReloadComments, setReloadComments] = useState(false);
   useEffect(() => {
-    axios.get("/colleges/" + parseInt(id)).then((res) => {
+    axios.get("/api/colleges/" + parseInt(id)).then((res) => {
       setCollegeData(res.data);
     });
-    axios
-      .get("/colleges/comments/" + parseInt(id))
-      .then((res) => {
-        setCollegeComments(res.data);
-      });
+    axios.get("/api/colleges/comments/" + parseInt(id)).then((res) => {
+      setCollegeComments(res.data);
+    });
   }, [id]);
   useEffect(() => {
     if (ReloadComments == true) {
-      axios
-        .get("/colleges/comments/" + parseInt(id))
-        .then((res) => {
-          setCollegeComments(res.data);
-        });
+      axios.get("/api/colleges/comments/" + parseInt(id)).then((res) => {
+        setCollegeComments(res.data);
+      });
       setReloadComments(false);
     }
   }, [ReloadComments]);

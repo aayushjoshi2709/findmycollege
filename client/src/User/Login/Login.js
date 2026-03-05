@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login({ setCurrentUser }) {
   const [FailedLogin, setFailedLogin] = useState(false);
@@ -11,20 +11,23 @@ function Login({ setCurrentUser }) {
     password: "",
   };
   const navigate = useNavigate();
-  const [values, setValues] = useState(initialValues);  
+  const [values, setValues] = useState(initialValues);
   function HandleSubmit(evt) {
     evt.preventDefault();
-    axios.post("/users/signin", values).then((res) => {
-      if (res.status === 201) {
-        setSuccessLogin(true);
-        setCurrentUser(res.data);
-        navigate('/');
-        return true;
-      }
-    }).catch(function(error){
-      setFailedLogin(true);
-      return false;
-    });
+    axios
+      .post("/api/users/signin", values)
+      .then((res) => {
+        if (res.status === 201) {
+          setSuccessLogin(true);
+          setCurrentUser(res.data);
+          navigate("/");
+          return true;
+        }
+      })
+      .catch(function (error) {
+        setFailedLogin(true);
+        return false;
+      });
     return false;
   }
   function handleChange(evt) {
@@ -38,24 +41,26 @@ function Login({ setCurrentUser }) {
     <div>
       <div className="container mt-2 d-flex justify-content-center">
         <div className="col-lg-8 bg-light m-5 p-3">
-
           <form
             onSubmit={(evt) => {
               HandleSubmit(evt);
             }}
           >
             <h1 className="text-center display-2">Login</h1>
-            {
-              FailedLogin?<div className="alert alert-danger my-3 text-center" role="alert">
+            {FailedLogin ? (
+              <div className="alert alert-danger my-3 text-center" role="alert">
                 Login Failed! Please check your username/password.
-              </div>:null
-            }
-            {
-              SuccessLogin?<div className="alert alert-success my-3 text-center" role="alert">
+              </div>
+            ) : null}
+            {SuccessLogin ? (
+              <div
+                className="alert alert-success my-3 text-center"
+                role="alert"
+              >
                 Login Successful!
-              </div>:null
-            }
-            
+              </div>
+            ) : null}
+
             <div className="mb-1">
               <p>
                 Username:
