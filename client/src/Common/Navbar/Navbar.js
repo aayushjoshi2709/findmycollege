@@ -13,7 +13,7 @@ function Navbar({ currentUser, setCurrentUser }) {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand" to="#">
-          GetMyCollege
+          findmycollege
         </Link>
         <button
           className="navbar-toggler"
